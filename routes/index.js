@@ -2,8 +2,10 @@ var express = require('express');
 var router = express.Router();
 var fs = require('fs');
 var uuid = require('node-uuid');
-
+var child_process = require('child_process');
+var async = require("async");
 /* GET home page. */
+var ARR = [];
 router.get('/newScript', function(req, res, next) {
   res.render('newScript', { title: 'Express' });
 });
@@ -44,7 +46,7 @@ router.post('/uploadScript', function(req, res, next) {
 		if(err) {
 		    return console.log(err);
 		}
-
+		ARR.push(id + '.js');
 		res.sendStatus(200);
 	}); 
 });
@@ -69,8 +71,41 @@ router.post('/:uuid/deleteScript', function(req, res, next) {
 
 	var filePath = './files/' + id; 
 	fs.unlinkSync(filePath);
+	var index = ARR.indexOf(id);
+	ARR.splice(index);
 	res.sendStatus(200);
 });
+
+
+fs.readdir('./files/', function(err, filenames) {
+    if (err) {
+      onError(err);
+      return;
+    }
+    
+    filenames.forEach(function(filename) {
+    	ARR.push(filename);
+    });
+    var _fn = function(){
+    	async.eachSeries(ARR, function(file, cb){
+
+	    	child_process.execFile('node', [ './files/' + file], function (err, result) {
+	    		console.log(result);
+	    		setTimeout(function(){
+	    			cb();
+	    		}, 1000);
+			    
+			});
+	    }, function(){
+	    	setTimeout(function(){
+	    		_fn();
+	    	}, 2000);
+	    });
+	}
+
+    _fn();
+    
+ });
 
 
 module.exports = router;
