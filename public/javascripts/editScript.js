@@ -5,13 +5,19 @@ $(function(){
             
             language: 'javascript'
         });
-        function htmlDecode(input){
-          var e = document.createElement('div');
-          e.innerHTML = input;
-          return e.childNodes[0].nodeValue;
-        }
-        var x = htmlDecode(window.scriptSRC)
-        window.editor.setValue(x.substring(1, x.length - 1));
+        
+        $.get("/" + window.item + "/getScript", function(data) {
+            console.log(data.data);
+          window.scriptSRC = data.data;
+          function htmlDecode(input){
+              var e = document.createElement('div');
+              e.innerHTML = input;
+              return e.childNodes[0].nodeValue;
+            }
+            var x = htmlDecode(window.scriptSRC)
+            window.editor.setValue(x);
+        });
+        
         
     });
     $('#editScript').click(function(){

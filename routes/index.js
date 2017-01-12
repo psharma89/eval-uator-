@@ -66,6 +66,16 @@ router.post('/:uuid/editScript', function(req, res, next) {
 	}); 
 });
 
+router.get('/:uuid/getScript', function(req, res, next) { 
+	var id = req.params.uuid;
+	fs.readFile('./files/' + id, 'utf8', function (err,data) {
+	  if (err) {
+	    return console.log(err);
+	  }
+	  res.send({data: data});
+	}); 
+});
+
 router.post('/:uuid/deleteScript', function(req, res, next) { 
 	var id = req.params.uuid;
 
