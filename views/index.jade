@@ -1,0 +1,10 @@
+extends layout
+
+block content
+  a.btn.btn-default(href="/newScript") New Script
+  div.box
+    h1= "Scripts"
+    ul
+    each item in arr
+      li
+        a.btn.btn-default.primary(href="/#{item}")= item
