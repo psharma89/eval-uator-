@@ -28,4 +28,19 @@ $(function(){
         });
         return false;
     });
+
+    $('#deleteScript').click(function(){
+        var value = window.editor.getValue();
+        $(this).hide();
+        var _this = this;
+        $.post( "/" + window.item + "/deleteScript", {script: btoa(encodeURIComponent(value))}, function() {
+          $(_this).show();
+          alert('saved!');
+          window.location = '/'
+        }).fail(function() {
+            alert('Failed. Try again.');
+            $(_this).show();
+        });
+        return false;
+    });
 });

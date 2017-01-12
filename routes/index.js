@@ -64,6 +64,15 @@ router.post('/:uuid/editScript', function(req, res, next) {
 	}); 
 });
 
+router.post('/:uuid/deleteScript', function(req, res, next) { 
+	var id = req.params.uuid;
+
+	var filePath = './files/' + id; 
+	fs.unlinkSync(filePath);
+	res.sendStatus(200);
+});
+
+
 module.exports = router;
 
 

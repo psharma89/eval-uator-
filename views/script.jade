@@ -5,6 +5,8 @@ block content
     h1= item
     div#container(style="width:800px;height:600px;border:1px solid grey; margin:auto; text-align:left;")
     button.btn.btn-default#editScript(type='submit' style="margin-top:15px; margin-bottom:15px;") Submit
+    br
+    button.btn.btn-default.btn-danger#deleteScript(type='submit' style="margin-top:15px; margin-bottom:15px;") Delete
     script(src="javascripts/editScript.js")
     script.
       window.scriptSRC = '#{data}';
