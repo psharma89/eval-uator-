@@ -1,3 +1,4 @@
+var newrelic = require('newrelic');
 var express = require('express');
 var router = express.Router();
 var fs = require('fs');
@@ -99,13 +100,19 @@ fs.readdir('./files/', function(err, filenames) {
     var _fn = function(){
     	async.eachSeries(ARR, function(file, cb){
 
-	    	child_process.execFile('node', [ './files/' + file], function (err, result) {
+	    	child_process.execFile('node', [ './files/' + file], newrelic.createBackgroundTransaction('evaluate', function (err, result) {
+	    		newrelic.addCustomParameter('file', file);
+	    		if (err){
+	    			newrelic.incrementMetric('Custom/Failure/' + file);
+	    			console.log(err);
+	    		}
 	    		console.log(result);
 	    		setTimeout(function(){
+	    			newrelic.endTransaction();
 	    			cb();
 	    		}, 1000);
 			    
-			});
+			}));
 	    }, function(){
 	    	setTimeout(function(){
 	    		_fn();

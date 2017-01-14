@@ -16,6 +16,8 @@
     "kue": "*",
     "monaco-editor":"*",
     "node-uuid": "*",
-    "async": "*"
+    "async": "*",
+    "request": "*",
+    "newrelic": "*"
   }
 }
