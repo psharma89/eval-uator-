@@ -1,9 +1,7 @@
 # eval-uator-
 Eval-uator allows you to create the dynamic alerts that you’ve always wanted. What is it? It’s a simple Node Service that can run tiny scripts (that you can create in the browser). 
 
-It’s
-
-main purpose is to query Insights and trigger alerts off of many queries.
+It’s main purpose is to query Insights and trigger alerts off of many queries.
 
   
 
