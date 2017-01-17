@@ -21,9 +21,7 @@ Custom/Failure/{file_name} - call_count.
 
   
 
-So if it fails once, or many times, trigger 
-
-alert.
+So if it fails once, or many times, trigger alert.
 
   
 
